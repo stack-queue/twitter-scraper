@@ -33,9 +33,8 @@ class Profile:
         # parse location, also check is username valid 
         try:
             self.location = page.find(attrs={"class":"ProfileHeaderCard-locationText u-dir"}).contents[1].contents[0].strip()
-        except AttributeError:
-            raise ValueError(
-                    f'Oops! Either "@{self.username}" does not exist or is private.')
+        except:
+            self.location = None
 
         # parse birthday
         try:
@@ -44,7 +43,11 @@ class Profile:
             self.birthday = None
 
         # parse URL of profile photo
-        self.profile_photo = page.find(attrs={"class":"ProfileAvatar-image"}).attrs['src']
+        try:
+            self.profile_photo = page.find(attrs={"class":"ProfileAvatar-image"}).attrs['src']
+        except AttributeError:
+            raise ValueError(f'Oops! Either "@{self.username}" does not exist or is private.')
+
 
         # parse full name
         name_text = page.find("title").contents[0]

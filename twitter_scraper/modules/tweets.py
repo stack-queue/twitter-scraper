@@ -56,7 +56,7 @@ def get_tweets(query, pages=25):
 
                 tweet_id = tweet.attrs['data-item-id']
 
-                time = datetime.fromtimestamp(int(tweet.find('._timestamp')[0].attrs['data-time-ms']) / 1000.0)
+                time = int(int(tweet.find('._timestamp')[0].attrs['data-time-ms']) / 1000.0)
 
                 interactions = [
                     x.text
